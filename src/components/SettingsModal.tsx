@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getSettings, saveSettings, type Settings } from '../lib/storage'
 import { useCitySearch } from '../hooks/useCitySearch'
+import { requestNotificationPermission, getNotificationPermission } from '../lib/notifications'
 
 const METHODS = [
     { id: 'MuslimWorldLeague', label: 'Muslim World League' },
@@ -37,9 +38,17 @@ export default function SettingsModal({ open, onClose, onSave }: SettingsModalPr
         longitude: 0,
         method: 'MuslimWorldLeague',
         notifications: true,
+        popupNotifications: false,
+        popupDurationMinutes: 15,
+        osNotifications: false,
         locationName: '',
         adjustments: { fajr: 0, sunrise: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0 },
     })
+    const [notifPerm, setNotifPerm] = useState<NotificationPermission | 'unsupported'>('default')
+
+    useEffect(() => {
+        setNotifPerm(getNotificationPermission())
+    }, [open])
 
     const { query, setQuery, results, loading: searchLoading } = useCitySearch()
 
@@ -200,17 +209,91 @@ export default function SettingsModal({ open, onClose, onSave }: SettingsModalPr
                         <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">
                             Notifications
                         </label>
-                        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
-                            <span className="text-sm font-medium text-gray-900">Enable Alarms</span>
-                            <label className="relative inline-flex items-center cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    className="sr-only peer"
-                                    checked={form.notifications}
-                                    onChange={(e) => setForm(f => ({ ...f, notifications: e.target.checked }))}
-                                />
-                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-900"></div>
-                            </label>
+                        <div className="space-y-2">
+                            {/* Enable Alarms + Browser Alert — combined */}
+                            <div className="p-4 bg-gray-50 rounded-xl border border-gray-100 space-y-3">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex flex-col">
+                                        <span className="text-sm font-medium text-gray-900">Enable Alerts</span>
+                                        <span className="text-[11px] text-gray-400 mt-0.5">Alarms &amp; OS-level browser notifications</span>
+                                    </div>
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            className="sr-only peer"
+                                            checked={form.notifications}
+                                            onChange={async (e) => {
+                                                const enabled = e.target.checked
+                                                if (enabled && notifPerm !== 'granted') {
+                                                    const perm = await requestNotificationPermission()
+                                                    setNotifPerm(perm)
+                                                    setForm(f => ({ ...f, notifications: enabled, osNotifications: perm === 'granted' }))
+                                                } else {
+                                                    setForm(f => ({ ...f, notifications: enabled, osNotifications: enabled }))
+                                                }
+                                            }}
+                                        />
+                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-900"></div>
+                                    </label>
+                                </div>
+
+                                {/* Permission status badge */}
+                                {form.notifications && notifPerm === 'denied' && (
+                                    <p className="text-[11px] text-red-500 font-medium">
+                                        ⚠️ Blocked in browser settings — allow notifications for this site to enable.
+                                    </p>
+                                )}
+                                {form.notifications && notifPerm === 'granted' && (
+                                    <p className="text-[11px] text-emerald-600 font-medium">✓ Browser permission granted</p>
+                                )}
+                                {form.notifications && notifPerm === 'unsupported' && (
+                                    <p className="text-[11px] text-gray-400">OS notifications not supported in this browser — alarms only.</p>
+                                )}
+                            </div>
+
+                            {/* In-app Popup */}
+                            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
+                                <div className="flex flex-col">
+                                    <span className="text-sm font-medium text-gray-900">Small Popup Reminder</span>
+                                    <span className="text-[11px] text-gray-400 mt-0.5">Pill overlay &amp; chime when app is open (automatically dismissed later)</span>
+                                </div>
+                                <label className="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={form.popupNotifications}
+                                        onChange={(e) => setForm(f => ({ ...f, popupNotifications: e.target.checked }))}
+                                    />
+                                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-900"></div>
+                                </label>
+                            </div>
+
+                            {/* Popup Duration — only visible when popup is enabled */}
+                            {form.popupNotifications && (
+                                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
+                                    <div className="flex flex-col">
+                                        <span className="text-sm font-medium text-gray-900">Popup Duration</span>
+                                        <span className="text-[11px] text-gray-400 mt-0.5">Minutes before auto-dismiss</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            onClick={() => setForm(f => ({ ...f, popupDurationMinutes: Math.max(1, (f.popupDurationMinutes ?? 15) - 1) }))}
+                                            className="w-7 h-7 flex items-center justify-center rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors text-sm font-bold"
+                                        >
+                                            −
+                                        </button>
+                                        <span className="font-outfit text-sm font-semibold w-8 text-center text-gray-900">
+                                            {form.popupDurationMinutes ?? 15}
+                                        </span>
+                                        <button
+                                            onClick={() => setForm(f => ({ ...f, popupDurationMinutes: Math.min(60, (f.popupDurationMinutes ?? 15) + 1) }))}
+                                            className="w-7 h-7 flex items-center justify-center rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors text-sm font-bold"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
 

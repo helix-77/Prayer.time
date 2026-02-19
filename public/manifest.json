@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Ramadan Time",
+  "name": "Prayer.time",
   "version": "1.0.0",
   "description": "Suhoor & Iftar countdowns, prayer times, and notifications for Ramadan.",
   "action": {

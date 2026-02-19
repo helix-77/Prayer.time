@@ -25,7 +25,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                 <span className="text-3xl">🌙</span>
             </div>
 
-            <h1 className="text-2xl font-bold text-gray-900 mb-2 font-outfit">Ramadan Time</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2 font-outfit">Prayer.time</h1>
             <p className="text-gray-500 mb-8 max-w-[240px]">
                 Enter your city to calculate accurate prayer times.
             </p>
