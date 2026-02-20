@@ -5,6 +5,16 @@
 
 A modern, minimalist, privacy-first, lightweight browser extension for prayer times and Ramadan countdowns. Built for speed, aesthetics, and privacy.
 
+## 📸 Screenshots
+
+<table>
+  <tr>
+    <td><img src="screenshot/screenshot (1).png" alt="Screenshot 1" width="260"/></td>
+    <td><img src="screenshot/screenshot (2).png" alt="Screenshot 2" width="260"/></td>
+    <td><img src="screenshot/screenshot (3).png" alt="Screenshot 3" width="260"/></td>
+  </tr>
+</table>
+
 ## ✨ Features
 
 ### Core

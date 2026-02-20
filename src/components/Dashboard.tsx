@@ -12,20 +12,14 @@ const ICONS: Record<string, string> = {
     fajr: '🌙', sunrise: '🌅', dhuhr: '☀️', asr: '🌤️', maghrib: '🌇', isha: '🌃',
 }
 
-// function getRelativeTime(prayerTime: Date, now: Date): string | null {
-//     const diff = prayerTime.getTime() - now.getTime()
-//     if (diff <= 0) return null
-//     const totalMin = Math.floor(diff / 60000)
-//     const h = Math.floor(totalMin / 60)
-//     const m = totalMin % 60
-//     if (h > 0) return `in ${h}h ${m}m`
-//     return `in ${m}m`
-// }
 
 export default function Dashboard({ locationName, onLocationClick, countdown, prayers }: DashboardProps) {
     const now = new Date()
     const nextPrayerIndex = prayers.findIndex(p => p.time > now)
-    const activeIndex = nextPrayerIndex === -1 ? 0 : nextPrayerIndex
+    const isSuhoorNext = (countdown?.label ?? '').toLowerCase().includes('suhoor')
+    const isIftarNext = (countdown?.label ?? '').toLowerCase().includes('iftar')
+    const isSpecialNext = isSuhoorNext || isIftarNext
+    const activeIndex = isSpecialNext ? -1 : (nextPrayerIndex === -1 ? 0 : nextPrayerIndex)
 
     const fajr = prayers.find(p => p.key === 'fajr')
     const maghrib = prayers.find(p => p.key === 'maghrib')
@@ -73,7 +67,7 @@ export default function Dashboard({ locationName, onLocationClick, countdown, pr
 
             {/* Suhoor & Iftar Badges */}
             <div className="flex gap-3 mb-3">
-                <div className="flex-1 bg-indigo-50 rounded-xl px-4 py-5 flex items-center justify-between border border-indigo-100">
+                <div className={`flex-1 bg-indigo-50 rounded-xl px-4 py-5 flex items-center justify-between border transition-all duration-300 ${isSuhoorNext ? 'border-indigo-400 bg-indigo-100 ring-2 ring-indigo-200 shadow-md' : 'border-indigo-50'}`}>
                     <div className="flex items-center gap-2">
                         <span className="text-sm">🍽️</span>
                         <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-400">Suhoor</span>
@@ -82,7 +76,7 @@ export default function Dashboard({ locationName, onLocationClick, countdown, pr
                         {fajr ? format(fajr.time, 'h:mm a') : '--'}
                     </span>
                 </div>
-                <div className="flex-1 bg-amber-50 rounded-xl px-4 py-5 flex items-center justify-between border border-amber-100">
+                <div className={`flex-1 bg-amber-50 rounded-xl px-4 py-5 flex items-center justify-between border transition-all duration-300 ${isIftarNext ? 'border-amber-400 bg-amber-100 ring-2 ring-amber-200 shadow-md' : 'border-amber-50'}`}>
                     <div className="flex items-center gap-2">
                         <span className="text-sm">🌙</span>
                         <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500">Iftar</span>
