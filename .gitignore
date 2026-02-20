@@ -23,3 +23,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+prayer-time-edge.zip
+prayer-time-firefox.zip
+prayer-time-source-mozilla.zip
