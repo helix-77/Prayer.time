@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Prayer.time",
   "version": "1.0.0",
-  "description": "Suhoor & Iftar countdowns, prayer times, and notifications for Ramadan.",
+  "description": "Lightweight, privacy-focused prayer times and Ramadan tracker with Athan countdowns and Salah, Suhoor, and Iftar alerts.",
   "action": {
     "default_popup": "index.html",
     "default_icon": {
@@ -20,9 +20,5 @@
     "service_worker": "background.js",
     "type": "module"
   },
-  "permissions": [
-    "storage",
-    "alarms",
-    "notifications"
-  ]
+  "permissions": ["storage", "alarms", "notifications"]
 }

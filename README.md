@@ -1,7 +1,9 @@
 # Prayer.time (Extension)
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
+[![Extension Size](https://img.shields.io/badge/extension%20size-%3C100%20KB-2ea44f.svg)](https://github.com/yourusername/Prayer.time)
+[![Edge Add-ons](https://img.shields.io/badge/Edge%20Add--ons-Install-0078D7?logo=microsoftedge&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/prayer-time/)
+[![Mozilla Add-ons](https://img.shields.io/badge/Mozilla%20Add--ons-Install-FF7139?logo=firefoxbrowser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/prayer-time/)
 
 A modern, minimalist, privacy-first, lightweight browser extension for prayer times and Ramadan countdowns. Built for speed, aesthetics, and privacy.
 
@@ -58,6 +60,16 @@ A modern, minimalist, privacy-first, lightweight browser extension for prayer ti
 - **Icons:** Heroicons + Custom SVG
 
 ## 🚀 Getting Started
+
+### Install from Browser Stores
+
+> **Microsoft Edge Add-ons**
+
+- <https://microsoftedge.microsoft.com/addons/detail/prayertime/iahnpaidkeghoncohilkghfhnffjadaf>
+
+> **Mozilla Firefox Add-ons**
+
+- <https://addons.mozilla.org/en-US/firefox/addon/prayer-time/>
 
 ### Prerequisites
 
