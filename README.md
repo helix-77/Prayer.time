@@ -2,8 +2,10 @@
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 [![Extension Size](https://img.shields.io/badge/extension%20size-%3C100%20KB-2ea44f.svg)](https://github.com/yourusername/Prayer.time)
-[![Edge Add-ons](https://img.shields.io/badge/Edge%20Add--ons-Install-0078D7?logo=microsoftedge&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/prayer-time/)
+
+[![Edge Add-ons](https://img.shields.io/badge/Edge%20Add--ons-Install-0078D7?logo=microsoftedge&logoColor=white)]([https://addons.mozilla.org/en-US/firefox/addon/prayer-time/](https://microsoftedge.microsoft.com/addons/detail/prayertime/iahnpaidkeghoncohilkghfhnffjadaf))
 [![Mozilla Add-ons](https://img.shields.io/badge/Mozilla%20Add--ons-Install-FF7139?logo=firefoxbrowser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/prayer-time/)
+[![Chromium Add-ons](https://img.shields.io/badge/Chromium-Install-4285F4?logo=googlechrome&logoColor=white)](https://github.com/helix-77/Prayer.time/releases/tag/v1.0.0)
 
 A modern, minimalist, privacy-first, lightweight browser extension for prayer times and Ramadan countdowns. Built for speed, aesthetics, and privacy.
 
@@ -61,7 +63,7 @@ A modern, minimalist, privacy-first, lightweight browser extension for prayer ti
 
 ## 🚀 Getting Started
 
-### Install from Browser Stores
+### Install
 
 > **Microsoft Edge Add-ons**
 
@@ -70,6 +72,15 @@ A modern, minimalist, privacy-first, lightweight browser extension for prayer ti
 > **Mozilla Firefox Add-ons**
 
 - <https://addons.mozilla.org/en-US/firefox/addon/prayer-time/>
+
+> **Chromium browsers**
+
+1. Download the `dist.zip` from [here](https://github.com/helix-77/Prayer.time/releases)
+2. Extract it.
+3. Open Chrome and navigate to `chrome://extensions`.
+4. Enable **Developer mode** (top right toggle).
+5. Click **Load unpacked**.
+6. Select the `dist` folder
 
 ### Prerequisites
 

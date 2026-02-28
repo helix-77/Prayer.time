@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="24" fill="#111827"/>
+  <g transform="translate(20, 18)">
+    <!-- Crescent moon -->
+    <circle cx="48" cy="44" r="32" fill="#d4a556"/>
+    <circle cx="60" cy="36" r="28" fill="#111827"/>
+    <!-- Clock -->
+    <circle cx="62" cy="68" r="18" fill="none" stroke="#d4a556" stroke-width="2.5" opacity="0.8"/>
+    <line x1="62" y1="68" x2="62" y2="56" stroke="#f0ece2" stroke-width="2" stroke-linecap="round"/>
+    <line x1="62" y1="68" x2="72" y2="68" stroke="#f0ece2" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="62" cy="68" r="2" fill="#f0ece2"/>
+  </g>
+</svg>
